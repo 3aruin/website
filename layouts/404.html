@@ -1,0 +1,105 @@
+{{/* Hugo special case — top-level layouts/404.html is auto-served for missing
+     routes. No content file in content/ is required. Cloudflare Pages picks
+     up the rendered public/404.html and serves it on any 404. */}}
+
+{{ define "extra_head" }}
+<style>
+  /* Page-only: vertical centering and an oversized 404 mark */
+  .not-found {
+    min-height: calc(100vh - 70px);
+    display: grid;
+    place-items: center;
+    padding: 64px 32px 96px;
+  }
+  .not-found-inner {
+    max-width: 720px;
+    width: 100%;
+  }
+  .nf-mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(160px, 26vw, 280px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .nf-status {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nf-status::before {
+    content: "";
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .nf-q {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .nf-q em { color: var(--accent); font-style: italic; }
+  .nf-trig {
+    font-size: 16px;
+    color: var(--ink-2);
+    line-height: 1.55;
+    margin-bottom: 32px;
+    max-width: 560px;
+  }
+  .nf-trig code {
+    background: var(--bg-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    font-size: 0.9em;
+    color: var(--ink);
+  }
+  .nf-actions {
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .nf-actions h4 { margin-bottom: 8px; }
+  .nf-actions ul.clean li::before { content: "→"; }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="not-found">
+  <div class="not-found-inner">
+
+    <div class="nf-mark" aria-hidden="true">404.</div>
+    <div class="nf-status">OQ-404 · Status: Open</div>
+
+    <h1 class="nf-q">This page <em>doesn't exist.</em></h1>
+
+    <p class="nf-trig">
+      Two possibilities. Either it was a draft that hasn't been written yet
+      — most of the page directory on the home page is still marked as such —
+      or the URL got typo'd somewhere. Trigger to resolve:
+      <code>a working URL.</code>
+    </p>
+
+    <div class="nf-actions">
+      <h4>Where you can go from here</h4>
+      <ul class="clean">
+        <li><a href="/">Home — the project entry, top pick, page directory</a></li>
+        <li><a href="/hub/">The Hub — everything in one document</a></li>
+        <li><a href="/brand-book/">Brand Book — design system reference</a></li>
+        <li><a href="/colophon/">Colophon — how this site is built</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+{{ end }}
