@@ -1,0 +1,278 @@
+{{ define "main" }}
+<div class="wrap">
+
+  {{/* ─── HERO ─── */}}
+  <header class="hero">
+    <div class="hero-eyebrow">Project Home · Mechanicsville, VA · May 2026</div>
+    <h1>Replacing the Vibe, <em>thoughtfully.</em></h1>
+    <p class="hero-lede">
+      A 2009 Pontiac Vibe on its last legs, two car seats to fit, and a $20K cap.
+      This is the entry to the working file — current state, the pick,
+      and where to find everything we've worked through.
+    </p>
+  </header>
+
+  {{/* ─── STAT STRIP ─── */}}
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Purchase Cap</div>
+      <div class="stat-value">$20,000</div>
+      <div class="stat-sub">73% of 20/3/8 ceiling</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Top Pick</div>
+      <div class="stat-value">Prius</div>
+      <div class="stat-sub">2018–2020 · Three / Three Touring</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Timeline</div>
+      <div class="stat-value">8 weeks</div>
+      <div class="stat-sub">Listing to closed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Decisions</div>
+      <div class="stat-value">19 logged</div>
+      <div class="stat-sub">5 still open</div>
+    </div>
+  </div>
+
+  {{/* ─── RECOMMENDATION ─── */}}
+  <section style="margin-top: 48px;">
+    <div class="recommendation">
+      <div class="reco-label">Primary Recommendation</div>
+      <div class="reco-pick"><em>2018–2020 Toyota Prius</em>, Three or Three Touring trim</div>
+      <div class="reco-price">Target $14,500–17,500 · ~$1,500/yr fuel + maintenance</div>
+      <p class="reco-body">
+        Spiritual successor to the Vibe — hatchback utility, Toyota mechanicals, 52 mpg combined.
+        Lands at 73% of our cap with cushion for taxes, fees, and a future Level 2 charger.
+        Plentiful inventory in Richmond. Backup pick is a Niro Hybrid if the Prius rear seat is
+        too tight for the car seats; an EV pivot to a Bolt EUV is on the table if Level 2 install pencils out.
+      </p>
+      <a href="/hub/#overview" class="reco-cta">
+        See the full case <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  {{/* ─── TWO-COL: OPEN Q + NEXT ACTIONS ─── */}}
+  <section style="margin-top: 28px;">
+    <div class="two-col">
+      <div class="card">
+        <h4>Still on the table</h4>
+        <div style="margin-top: 16px;">
+          <div class="open-q">
+            <div class="open-q-id">OQ-1</div>
+            <div class="open-q-q">Final powertrain — hybrid, EV, or gas?</div>
+            <div class="open-q-trig">Test drives + electrician quote</div>
+          </div>
+          <div class="open-q">
+            <div class="open-q-id">OQ-2</div>
+            <div class="open-q-q">Specific year, trim, and VIN</div>
+            <div class="open-q-trig">Test drives + pre-purchase inspection</div>
+          </div>
+          <div class="open-q">
+            <div class="open-q-id">OQ-3</div>
+            <div class="open-q-q">Which lender wins financing</div>
+            <div class="open-q-trig">After 3+ pre-approvals</div>
+          </div>
+          <div class="open-q">
+            <div class="open-q-id">OQ-4</div>
+            <div class="open-q-q">Vibe sale — price, channel, timing</div>
+            <div class="open-q-trig">After listing 1–2 weeks</div>
+          </div>
+          <div class="open-q">
+            <div class="open-q-id">OQ-5</div>
+            <div class="open-q-q">Level 2 charger model + electrician</div>
+            <div class="open-q-trig">Only if powertrain goes EV</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Next up — Week 1</h4>
+        <ul class="clean" style="margin-top: 14px;">
+          <li>Pull credit reports</li>
+          <li>Pre-approve financing — 3 quotes from credit unions + Capital One</li>
+          <li>Get insurance quotes for the shortlist (rough numbers, no VIN yet)</li>
+          <li>List the Vibe on Facebook Marketplace, honest "mechanic's special" framing</li>
+        </ul>
+        <p style="font-size: 13px; color: var(--ink-3); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line);">
+          The full 8-week plan lives in <a href="/buying-plan/" style="color: var(--ink-2);">Buying Plan</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {{/* ─── PAGE INDEX ───
+       Hand-coded for first migration; a future B-NNN can template this off
+       a data/pages.yaml file so cards stay in sync with the actual page set
+       and statuses update from front matter. Tracked alongside OQ-B4. */}}
+  <section>
+    <div class="section-head-simple">
+      <div class="sub">The Site</div>
+      <h2>Where everything lives</h2>
+    </div>
+
+    <div class="page-index">
+
+      <a href="/hub/" class="page-card featured">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">Reference · Comprehensive</span>
+          <span class="page-status live">Live</span>
+        </div>
+        <h3 class="page-title">The Hub</h3>
+        <p class="page-desc">
+          Everything in one place — all seven sections, the recommendation,
+          the five vehicles, the costs, the budget math, the process, the full
+          decision log, and the quick reference. The deep doc.
+        </p>
+        <div class="page-detail">
+          <span>7 sections · 19 decisions · 5 open questions</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/shortlist/" class="page-card draft">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">Vehicles</span>
+          <span class="page-status draft">Draft</span>
+        </div>
+        <h3 class="page-title">The Shortlist</h3>
+        <p class="page-desc">
+          The five vehicles we're choosing between. Stats, fit notes, why they
+          made the cut, why the Leaf / Camry Hybrid / Model 3 / Subaru did not.
+        </p>
+        <div class="page-detail">
+          <span>5 cars · 4 hybrid + 1 EV</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/buying-plan/" class="page-card draft">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">Process</span>
+          <span class="page-status draft">Draft</span>
+        </div>
+        <h3 class="page-title">Buying Plan</h3>
+        <p class="page-desc">
+          Eight-week timeline from listing the Vibe to keys in hand. Financing
+          comparison, insurance shopping, inspection checklist, negotiation order.
+        </p>
+        <div class="page-detail">
+          <span>8 weeks · 5 phases</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/decisions/" class="page-card draft">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">Log</span>
+          <span class="page-status draft">Draft</span>
+        </div>
+        <h3 class="page-title">Decisions Log</h3>
+        <p class="page-desc">
+          What we've decided and why. Filterable by status —
+          decided, in progress, rejected, open. Every D-001 through D-019.
+        </p>
+        <div class="page-detail">
+          <span>19 entries · last updated May 2026</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/quickref/" class="page-card draft">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">Lookup</span>
+          <span class="page-status draft">Draft</span>
+        </div>
+        <h3 class="page-title">Quick Reference</h3>
+        <p class="page-desc">
+          "Where did we land on...?" Topic-organized lookup —
+          budget, vehicles, insurance, inspection, incentives —
+          each pointing to the decision that settled it.
+        </p>
+        <div class="page-detail">
+          <span>6 topic groups</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/brand-book/" class="page-card">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">System · Reference</span>
+          <span class="page-status live">Live</span>
+        </div>
+        <h3 class="page-title">Brand Book</h3>
+        <p class="page-desc">
+          The design system documented in itself. Principles, palette
+          with HEX + CMYK, type scale, and every component the site uses.
+        </p>
+        <div class="page-detail">
+          <span>4 principles · 14 tokens · 9 components</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/now/" class="page-card">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">Status</span>
+          <span class="page-status live">Live</span>
+        </div>
+        <h3 class="page-title">Now</h3>
+        <p class="page-desc">
+          What I'm working on this week — short, dated, and only kept
+          accurate when I sit down with the file. The site's narrowest view.
+        </p>
+        <div class="page-detail">
+          <span>Updated weekly</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/colophon/" class="page-card">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">About</span>
+          <span class="page-status live">Live</span>
+        </div>
+        <h3 class="page-title">Colophon</h3>
+        <p class="page-desc">
+          Credits, fonts, build approach, and how this site is put together —
+          one page that points back at every choice in the decision log.
+        </p>
+        <div class="page-detail">
+          <span>Stack · type · tools</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/accessibility/" class="page-card">
+        <div class="page-card-meta">
+          <span class="page-eyebrow">Statement</span>
+          <span class="page-status live">Live</span>
+        </div>
+        <h3 class="page-title">Accessibility</h3>
+        <p class="page-desc">
+          Target conformance (WCAG 2.1 AA), what's in place, what's still
+          open. Same convention as the decision logs — closed items have
+          IDs, open ones have triggers.
+        </p>
+        <div class="page-detail">
+          <span>10 closed · 3 open</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  {{/* ─── HOME-PAGE FOOTER ───
+       Bespoke (not the partial) — project-specific metadata. Will need a
+       rewrite when the home stops being primarily the vehicle project's hub
+       (B-001 anticipates this). "Last updated" is editorial, not lastmod. */}}
+  <footer>
+    <p>Vehicle Project · Mechanicsville, VA (23116) · Last updated May 2026</p>
+    <p>Built from <code>INDEX.md · BUYING_PLAN.md · SHORTLIST_COMPARISON.md · DECISIONS.md · QUICKREF.md</code></p>
+  </footer>
+
+</div>
+{{ end }}
