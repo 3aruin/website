@@ -1,0 +1,19 @@
+{{/* Universal minimal footer — sitewide colophon line.
+     Pages that need a richer footer (brand-book, the home page) should NOT
+     call this partial and should inline their own footer inside their main
+     block. The print stylesheet (B-027) adds its own page-bottom colophon
+     strip, so this stays deliberately small for screen.
+
+     To use: {{ partial "footer.html" . }} at the end of a page's main block. */}}
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="site-footer-mark">
+      {{ .Site.Params.brand.word1 }} <span>{{ .Site.Params.brand.word2 }}</span>
+    </span>
+    <span class="site-footer-meta">
+      <a href="/colophon/">Colophon</a> ·
+      <a href="/accessibility/">Accessibility</a> ·
+      Updated {{ now.Format "January 2006" }}
+    </span>
+  </div>
+</footer>
