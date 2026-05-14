@@ -1,0 +1,26 @@
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      {{ .Site.Params.brand.word1 }} <span>{{ .Site.Params.brand.word2 }}</span>
+    </a>
+
+    {{/* Section-jump anchors — only render when the page declares them in
+         front matter as a `nav_links` array. Keeps the standard nav clean
+         on most pages, while long pages (brand book) get an in-nav TOC.
+         When present, the toggle nests inside the same .nav-right wrapper
+         so existing CSS layout rules apply. */}}
+    {{ with .Params.nav_links }}
+      <div class="nav-right">
+        <ul class="nav-links">
+          {{ range . }}
+          <li><a href="{{ .href }}">{{ .label }}</a></li>
+          {{ end }}
+        </ul>
+        {{ partial "theme-toggle.html" . }}
+      </div>
+    {{ else }}
+      {{ partial "theme-toggle.html" . }}
+    {{ end }}
+
+  </div>
+</nav>
