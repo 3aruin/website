@@ -5,9 +5,9 @@ scope: build, hosting, theme, structure, brand
 host: Cloudflare Pages
 domain: bysimms.co
 started: 2026-05-13
-last_updated: 2026-05-17
+last_updated: 2026-05-14
 status_counts:
-  decided: 31
+  decided: 32
   in_progress: 1
   open: 3
   not_applicable: 0
@@ -19,13 +19,13 @@ The meta log: how this static site is built, themed, hosted, and branded. **Not*
 
 Decision IDs use a `B-NNN` prefix for *build*, distinct from the vehicle project's `D-NNN`. Chronological, never renumbered. Status can change; the ID is permanent. When a later decision replaces an earlier one, the earlier one keeps its ID and gets a **Superseded by** line — the history is the record.
 
-**Status snapshot:** 31 decided · 1 in progress · 3 open · 0 not applicable
+**Status snapshot:** 32 decided · 1 in progress · 3 open · 0 not applicable
 
 ---
 
 ## Index
 
-### ✅ Decided (31)
+### ✅ Decided (32)
 
 | ID    | Topic                                                                          |
 |-------|--------------------------------------------------------------------------------|
@@ -59,6 +59,7 @@ Decision IDs use a `B-NNN` prefix for *build*, distinct from the vehicle project
 | B-029 | Chrome extracted to Hugo `baseof.html` + four partials                         |
 | B-030 | URL convention — clean, no `.html` extension (uglyURLs = false)                |
 | B-031 | Hugo build configuration — sitemap, robots, markup, params                     |
+| B-032 | Home page description — no override, sitewide default wins                     |
 
 ### 🔄 In progress (1)
 
@@ -495,6 +496,27 @@ Initial `hugo.toml` settings, each tied to a prior decision:
 - **`[params]`** — `description` (sitewide default for OG/meta) and `[params.brand]` (`word1` / `word2` for the nav-brand split per B-029).
 
 **Tradeoff:** five settings to maintain instead of one. Acceptable; the file is short and every line traces to a decision.
+
+---
+
+### B-032 — Home page description: no override, sitewide default wins
+**Status:** ✅ Decided
+
+`content/_index.md` carries no `description` front matter. The sitewide default in `hugo.toml` (`[params.description]`) is the canonical description for the home — the home is what the sitewide default describes, so duplicating the string on the page would create two near-identical sources that drift the moment one gets edited.
+
+The mechanism is the fallback already built into `head.html` (B-029):
+
+```go-html-template
+content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}"
+```
+
+When `_index.md` doesn't set `description`, the partial falls through to `.Site.Params.description`. Every other content file (`colophon.md`, `now.md`, `accessibility.md`, `brand-book.md`) sets its own page-specific description, so the override path is the common one — the home is the deliberate exception. An inline YAML comment in `_index.md` explains the absence at the site of the decision, so a future reader doesn't add the field back out of pattern-matching.
+
+**Done as part of this update:**
+- The four content stubs (`content/_index.md`, `content/colophon.md`, `content/now.md`, `content/accessibility.md`) landed in `content/`, mirroring `brand-book.md`'s front-matter pattern (`title` · `description` · `layout`). They were assumed by B-029 but hadn't been written; this closes that gap.
+- The two partials referenced by B-029 (`layouts/partials/head.html`, `layouts/partials/theme-preload.html`) were written in the same pass. `head.html` implements the three-case title rule described in B-029's body and the description fallback above. `theme-preload.html` is the pre-paint IIFE that sets `data-theme` on the document element before first paint; it duplicates the resolution logic from `theme.js` on purpose, because the preload script can't be `defer`red and the handler script has to be.
+
+**Tradeoff:** none meaningful. Cost is a single YAML comment explaining why one field is absent on one page.
 
 ---
 
