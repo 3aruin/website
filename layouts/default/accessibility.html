@@ -1,0 +1,352 @@
+{{ define "extra_head" }}
+<style>
+  /* A-N item rows — looks like decision-log entries, narrower. */
+  .a11y-item {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .a11y-item:last-child { border-bottom: none; }
+  .a11y-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .a11y-title {
+    font-family: var(--sans);
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--ink);
+    flex: 1;
+    line-height: 1.35;
+  }
+  .a11y-id {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+    margin-right: 8px;
+  }
+  .a11y-body {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.55;
+    max-width: 680px;
+  }
+  .a11y-body code {
+    background: var(--bg-soft);
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-size: 0.9em;
+  }
+  .a11y-wcag {
+    display: inline-block;
+    margin-left: 8px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+
+  /* Reuse status badges from theme.css */
+  .conformance-line {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .conformance-line .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .conformance-line .value {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="wrap-tight">
+
+  <header class="hero">
+    <div class="hero-eyebrow with-rule">Accessibility · Statement</div>
+    <h1>Built to be <em>read.</em></h1>
+    <p class="hero-lede">
+      How accessible this site is, what's done, what's still open. The page
+      follows the same convention as the rest of the working file — items
+      have IDs, statuses, and triggers. The bar is WCAG 2.1 Level AA;
+      where we don't yet meet it, the gap is named.
+    </p>
+  </header>
+
+  <section>
+    <div class="section-head-simple">
+      <div class="sub">Target</div>
+      <h2>Conformance</h2>
+    </div>
+
+    <div class="conformance-line">
+      <span class="label">Target</span>
+      <span class="value">WCAG 2.1 · Level AA</span>
+      <span class="badge progress" style="margin-left: auto;">Partial</span>
+    </div>
+
+    <p style="margin-top: 16px; max-width: 680px;">
+      WCAG 2.1 AA is the standard both the U.S. Americans with Disabilities Act
+      (ADA, by interpretation) and the EU's European Accessibility Act (EAA, in
+      force June 28, 2025) effectively reference. This site isn't in legal
+      scope for either today — it's a personal working file, not a place of
+      public accommodation or an EAA-listed product or service — but the
+      industry bar is the right design bar.
+    </p>
+
+    <p style="max-width: 680px;">
+      <strong>Where we stand:</strong> the foundations are in place. A small
+      number of items remain open and are listed below by ID, with the WCAG
+      success criterion each maps to.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-head-simple">
+      <div class="sub">Closed</div>
+      <h2>What's in place</h2>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-001</span>Semantic HTML throughout<span class="a11y-wcag">WCAG 1.3.1</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;section&gt;</code>,
+        <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code> used semantically. Heading
+        hierarchy (h1 → h2 → h3 → h4) on every page. The 404 page has a real
+        <code>&lt;h1&gt;</code>; the oversized "404." mark is decorative
+        (<code>aria-hidden="true"</code>).
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-002</span>Language declared<span class="a11y-wcag">WCAG 3.1.1</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        <code>&lt;html lang="en"&gt;</code> on every page.
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-003</span>Theme toggle announces state<span class="a11y-wcag">WCAG 4.1.2</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        The light/dark button uses <code>aria-pressed</code> reflecting the current
+        theme, with a static <code>aria-label="Toggle light and dark theme"</code>.
+        Screen readers announce "Toggle light and dark theme, toggle button, pressed"
+        or "not pressed" — the label names the action, the pressed state names the
+        current result. Decorative SVG icons inside the button carry
+        <code>aria-hidden="true"</code> so they don't get read separately.
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-004</span>Color is never the only cue<span class="a11y-wcag">WCAG 1.4.1</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        Status badges always pair color with a text label ("Decided",
+        "In Progress", "Rejected", "Open"). The italic emphasis pattern
+        carries semantic <code>&lt;em&gt;</code> in addition to the burgundy color
+        — italic is the structural cue, color is decoration. Draft pages
+        have a text "Draft" badge in addition to reduced opacity.
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-005</span>Reduced motion honoured<span class="a11y-wcag">WCAG 2.3.3</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        <code>@media (prefers-reduced-motion: reduce)</code> in
+        <code>theme.css</code> collapses transitions to ~0ms and disables
+        the hover-translate on page cards. Smooth scroll is turned off for the
+        same users.
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-006</span>Mobile touch targets ≥ 44 × 44<span class="a11y-wcag">WCAG 2.5.5</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        The theme toggle is 36 × 36 on desktop, 44 × 44 on mobile (≤640px) —
+        meeting the AAA target-size rule where it matters most. All other
+        interactive elements are text links inside generously-padded cards
+        whose entire surface is the hit area.
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-007</span>Color contrast — body and headlines<span class="a11y-wcag">WCAG 1.4.3</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        Body text and headlines clear AA comfortably in both modes.
+        Light: <code>--ink-2</code> on <code>--bg</code> ≈ 10.5:1;
+        <code>--ink-3</code> on <code>--bg</code> ≈ 5.5:1.
+        Dark: <code>--ink-2</code> on <code>--bg</code> ≈ 9:1;
+        <code>--ink-3</code> ≈ 4.7:1 (passes AA for normal text).
+        Burgundy <code>--accent</code> on cream ≈ 7.2:1. Terracotta in
+        dark mode ≈ 6.7:1.
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-008</span>Keyboard navigable<span class="a11y-wcag">WCAG 2.1.1</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        Every interactive element is a native <code>&lt;a&gt;</code> or
+        <code>&lt;button&gt;</code> — no custom <code>tabindex</code> hacks,
+        no <code>div role="button"</code>. Tab order follows source order.
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-009</span>Skip-to-main-content link wired<span class="a11y-wcag">WCAG 2.4.1</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        Every page now renders <code>&lt;a class="skip-link" href="#main"&gt;Skip
+        to main content&lt;/a&gt;</code> as the first focusable element after
+        <code>&lt;body&gt;</code>, jumping past the nav to the main content
+        region. The link is visually hidden until it receives keyboard focus,
+        then appears at the top-left in accent color. Closed OQ-A2; landed
+        as a one-file edit to <code>baseof.html</code> (B-029 made the wiring
+        a single change instead of six).
+      </p>
+    </div>
+
+    <div class="a11y-item">
+      <div class="a11y-head">
+        <div class="a11y-title"><span class="a11y-id">A-010</span>Main landmark on every page<span class="a11y-wcag">WCAG 1.3.1 · 2.4.1</span></div>
+        <span class="badge decided">Decided</span>
+      </div>
+      <p class="a11y-body">
+        Every page wraps its primary content in <code>&lt;main id="main"&gt;</code>,
+        giving screen-reader users a single landmark to jump to and serving
+        as the target for the skip-link (A-009). The 404 page's inner
+        <code>&lt;main&gt;</code> was demoted to a <code>&lt;div&gt;</code>
+        to avoid nested landmarks. Closed OQ-A4.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head-simple">
+      <div class="sub">Open</div>
+      <h2>What's still on the table</h2>
+    </div>
+
+    <div style="margin-top: 4px;">
+      <div class="open-q boxed" style="margin-bottom: 12px;">
+        <div class="open-q-id">OQ-A1 · WCAG 1.4.3</div>
+        <div class="open-q-q">Amber color used as text fails AA contrast in light mode</div>
+        <div class="open-q-trig">
+          The open-question ID labels (<code>.open-q-id</code>) are
+          <code>--amber</code> <code>#a87617</code> at 10.5px on cream
+          (<code>#faf7f2</code>), contrast ≈ 3.7:1 — short of the 4.5:1
+          required for normal text. Trigger to close: deepen light-mode
+          <code>--amber</code> to ~<code>#8a5e0d</code> (or recolor the OQ-id
+          to <code>--ink-2</code> while keeping the amber left-border for
+          visual cue). Dark-mode amber is unaffected (≈ 9.5:1).
+        </div>
+      </div>
+
+      <div class="open-q boxed" style="margin-bottom: 12px;">
+        <div class="open-q-id">OQ-A3 · WCAG 2.4.7</div>
+        <div class="open-q-q">Focus styles rely on browser defaults</div>
+        <div class="open-q-trig">
+          <code>:focus-visible</code> styles are now defined in
+          <code>theme.css</code> (a 2px <code>--accent</code> outline with
+          offset). Browsers without <code>:focus-visible</code> support fall
+          back to their built-in ring. Trigger to close: verify keyboard
+          focus visible on every interactive element in both modes
+          (currently confirmed for nav, theme toggle, and links).
+        </div>
+      </div>
+
+      <div class="open-q boxed">
+        <div class="open-q-id">OQ-A5 · Convention</div>
+        <div class="open-q-q">No third-party automated audit yet</div>
+        <div class="open-q-trig">
+          axe-core / Lighthouse / Pa11y haven't been run against the
+          deployed site. Trigger to close: at first publish, run
+          Lighthouse + axe DevTools against home, brand-book, and 404;
+          file any findings as new OQ-AN entries.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head-simple">
+      <div class="sub">Convention</div>
+      <h2>How issues are tracked</h2>
+    </div>
+    <p style="max-width: 680px;">
+      Accessibility items use the <code>A-NNN</code> prefix for decisions and
+      <code>OQ-AN</code> for open questions — distinct from <code>D-NNN</code>
+      / <code>B-NNN</code> in the other logs. Each closed item references the
+      relevant <a href="https://www.w3.org/WAI/WCAG21/quickref/">WCAG 2.1
+      success criterion</a>; each open item names the criterion <em>and</em>
+      the trigger that would close it.
+    </p>
+    <p style="max-width: 680px;">
+      To report an issue, email <a href="mailto:hi@bysimms.co">hi@bysimms.co</a>
+      with the page URL, what you tried to do, what happened, and your assistive
+      tech (if any). I'll acknowledge within a working week.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-head-simple">
+      <div class="sub">Stack note</div>
+      <h2>For the curious</h2>
+    </div>
+    <p style="max-width: 680px;">
+      This site is hand-built HTML rendered through <a href="https://gohugo.io/">Hugo</a>,
+      hosted on <a href="https://pages.cloudflare.com/">Cloudflare Pages</a>,
+      with the full design system documented in the <a href="/brand-book/">brand book</a>.
+      The audit decisions live alongside the build decisions in
+      <code>SITE_DECISIONS.md</code> (the accessibility pass is B-028).
+    </p>
+    <p class="hero-eyebrow with-rule" style="margin-top: 28px;">Last audited · May 14, 2026</p>
+  </section>
+
+</div>
+{{ end }}

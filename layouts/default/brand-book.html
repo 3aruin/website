@@ -1,0 +1,472 @@
+{{/* Brand book — no extra_head block needed. Every class used below is
+     defined in theme.css. The page is reference documentation for the
+     system; the system documents itself with its own components. */}}
+
+{{ define "main" }}
+<div class="wrap">
+
+  {{/* ─── HERO / COVER ─── */}}
+  <header class="hero">
+    <div class="hero-eyebrow with-rule">Brand Book · v1.0 · May 2026</div>
+    <h1 class="display">Working <em>File.</em></h1>
+    <div class="hero-tagline">One theme, <em>two moods.</em></div>
+    <p class="hero-lede">
+      A warm, editorial design system for working files, decision logs,
+      and personal references. The whole system rides on CSS variables —
+      fourteen color tokens, three typefaces, a handful of components.
+      Toggle the moon, top right, to see every page in dark.
+    </p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Color tokens</div>
+        <div class="stat-value">14</div>
+        <div class="stat-sub">surfaces · ink · accents · functional</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Type families</div>
+        <div class="stat-value">3</div>
+        <div class="stat-sub">serif · sans · mono</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Modes</div>
+        <div class="stat-value">2</div>
+        <div class="stat-sub">light · dark</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Components</div>
+        <div class="stat-value">9</div>
+        <div class="stat-sub">documented in this book</div>
+      </div>
+    </div>
+  </header>
+
+  {{/* ─── 01 PRINCIPLES ─── */}}
+  <section id="principles">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Principles</h2>
+    </div>
+    <div class="section-rule"></div>
+    <p class="section-intro">
+      Four ideas the system is willing to be inflexible about. Everything
+      else can flex; these don't.
+    </p>
+
+    <div class="principles-grid">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-title">Warmth</div>
+        <p>The surface reads as paper, not screen. Page is cream or deep ink — never pure white, never pure black. Text is warm-dark or warm-cream.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-title">Restraint</div>
+        <p>One accent, used sparingly. The italic emphasis, the recommendation block, the burgundy mark — they earn attention by being rare.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-title">Editorial</div>
+        <p>Numbered sections, serif headlines, italic emphasis on key words, mono labels for metadata. The system reads like a working magazine layout.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04</div>
+        <div class="principle-title">Dual mood</div>
+        <p>Same character in light and dark. Dark is intentional, not inverted — a leather-bound book by a reading lamp, not a generic dark theme.</p>
+      </div>
+    </div>
+  </section>
+
+  {{/* ─── 02 PALETTE ───
+       14 swatches hand-coded. OQ-B4 tracks the data-driven shortcode
+       version (palette.yaml + {{< palette >}} shortcode). Not closed by
+       this migration. */}}
+  <section id="palette">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Palette</h2>
+    </div>
+    <div class="section-rule"></div>
+    <p class="section-intro">
+      Fourteen named colors, paired across light and dark. Surfaces and ink carry
+      structure; accents and functional carry meaning. Every value is a CSS
+      custom property — the chips below show whatever mode you're in right now,
+      and both HEX and CMYK values stay listed for print and handoff. The CMYK
+      figures are mathematical sRGB→CMYK conversions; a print shop will ICC-match
+      against destination paper.
+    </p>
+
+    <div class="subhead">Surfaces &amp; Ink</div>
+    <div class="swatch-grid">
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--bg);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Page</div><div class="swatch-token">--bg</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#faf7f2</span><span class="mode-cmyk">0 / 1 / 3 / 2</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#16130e</span><span class="mode-cmyk">0 / 14 / 36 / 91</span></div>
+          </div>
+          <div class="swatch-use">Primary page surface. The "paper" beneath all content.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--bg-card);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Card</div><div class="swatch-token">--bg-card</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#ffffff</span><span class="mode-cmyk">0 / 0 / 0 / 0</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#1f1b15</span><span class="mode-cmyk">0 / 13 / 32 / 88</span></div>
+          </div>
+          <div class="swatch-use">Raised content. Cards, decisions, panels, stat strip cells.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--bg-soft);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Soft</div><div class="swatch-token">--bg-soft</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#f3eee5</span><span class="mode-cmyk">0 / 2 / 6 / 5</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#28231b</span><span class="mode-cmyk">0 / 13 / 33 / 84</span></div>
+          </div>
+          <div class="swatch-use">Subtle fills. Hover states, "open" badges, table header bands.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--ink);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Ink</div><div class="swatch-token">--ink</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#1a1816</span><span class="mode-cmyk">0 / 8 / 15 / 90</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#f0e9db</span><span class="mode-cmyk">0 / 3 / 9 / 6</span></div>
+          </div>
+          <div class="swatch-use">Primary text. Headlines, titles, navigation, emphasized phrases.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--ink-2);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Ink 2</div><div class="swatch-token">--ink-2</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#3d3a35</span><span class="mode-cmyk">0 / 5 / 13 / 76</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#c4baa8</span><span class="mode-cmyk">0 / 5 / 14 / 23</span></div>
+          </div>
+          <div class="swatch-use">Body text. Paragraphs, decision bodies, descriptions.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--ink-3);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Ink 3</div><div class="swatch-token">--ink-3</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#6b655c</span><span class="mode-cmyk">0 / 6 / 14 / 58</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#897f6e</span><span class="mode-cmyk">0 / 7 / 20 / 46</span></div>
+          </div>
+          <div class="swatch-use">Tertiary. Eyebrows, captions, metadata, mono labels.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="subhead">Accents &amp; Functional</div>
+    <div class="swatch-grid">
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--accent);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Accent</div><div class="swatch-token">--accent</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#8b3a2f</span><span class="mode-cmyk">0 / 58 / 66 / 45</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#d4897a</span><span class="mode-cmyk">0 / 35 / 42 / 17</span></div>
+          </div>
+          <div class="swatch-use">Primary brand mark. Italic emphasis, recommendation accent bar, links, eyebrow rules, favicon.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--accent-soft);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Accent soft</div><div class="swatch-token">--accent-soft</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#f0d9d2</span><span class="mode-cmyk">0 / 10 / 13 / 6</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#3a201a</span><span class="mode-cmyk">0 / 45 / 55 / 77</span></div>
+          </div>
+          <div class="swatch-use">Rejected badge fill. Pairs with --accent-ink for readable on-color text.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--tan);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Tan</div><div class="swatch-token">--tan</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#c69568</span><span class="mode-cmyk">0 / 25 / 47 / 22</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#d9b287</span><span class="mode-cmyk">0 / 18 / 38 / 15</span></div>
+          </div>
+          <div class="swatch-use">Secondary warm hue. Decorative role, never structural. Bridges accent and surface.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--tan-soft);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Tan soft</div><div class="swatch-token">--tan-soft</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#f1e3d2</span><span class="mode-cmyk">0 / 6 / 13 / 5</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#3a2c1d</span><span class="mode-cmyk">0 / 24 / 50 / 77</span></div>
+          </div>
+          <div class="swatch-use">Recommendation block gradient base. Anywhere a tinted "warm card" treatment is needed.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--green);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Green</div><div class="swatch-token">--green</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#4a6741</span><span class="mode-cmyk">28 / 0 / 37 / 60</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#9bb585</span><span class="mode-cmyk">14 / 0 / 27 / 29</span></div>
+          </div>
+          <div class="swatch-use">Functional — success / decided. Forest tone, not bright. Pairs with --green-soft and --green-ink.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--green-soft);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Green soft</div><div class="swatch-token">--green-soft</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#dfe8da</span><span class="mode-cmyk">4 / 0 / 6 / 9</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#2a3a22</span><span class="mode-cmyk">28 / 0 / 41 / 77</span></div>
+          </div>
+          <div class="swatch-use">Decided badge fill. "Lowest" callouts. Calm, never celebratory.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--amber);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Amber</div><div class="swatch-token">--amber</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#a87617</span><span class="mode-cmyk">0 / 30 / 86 / 34</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#dcb547</span><span class="mode-cmyk">0 / 18 / 68 / 14</span></div>
+          </div>
+          <div class="swatch-use">Functional — in progress / open. Mustard-leaning, not orange. Open-question left border.</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background: var(--amber-soft);"></div>
+        <div class="swatch-info">
+          <div class="swatch-head"><div class="swatch-name">Amber soft</div><div class="swatch-token">--amber-soft</div></div>
+          <div class="swatch-values">
+            <div class="swatch-mode"><span class="mode-label">Light</span><span class="mode-hex">#f3e6c8</span><span class="mode-cmyk">0 / 5 / 18 / 5</span></div>
+            <div class="swatch-mode"><span class="mode-label">Dark</span><span class="mode-hex">#3a2e14</span><span class="mode-cmyk">0 / 21 / 66 / 77</span></div>
+          </div>
+          <div class="swatch-use">In-progress badge fill. Soft warning, never alarm.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {{/* ─── 03 TYPOGRAPHY ─── */}}
+  <section id="typography">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Typography</h2>
+    </div>
+    <div class="section-rule"></div>
+    <p class="section-intro">
+      Three families, distinct registers. The serif carries display weight
+      and italic emphasis; the sans handles body and UI; the mono labels,
+      IDs, eyebrows, and any text where character width matters.
+    </p>
+
+    <div class="card type-scale">
+      <div class="type-row">
+        <div class="type-spec">Display · 64–144 / Serif</div>
+        <div class="type-sample" style="font-family: var(--serif); font-size: clamp(48px, 7vw, 88px); letter-spacing: -0.035em;">Working <em>File.</em></div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">H2 · 36–52 / Serif</div>
+        <div class="type-sample" style="font-family: var(--serif); font-size: clamp(32px, 4vw, 44px); letter-spacing: -0.025em;">Section heading</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">Tagline · 24–32 / Serif</div>
+        <div class="type-sample" style="font-family: var(--serif); font-size: 28px; letter-spacing: -0.01em; color: var(--ink-2);">Secondary serif line</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">H3 · 18 / Sans 600</div>
+        <div class="type-sample" style="font-family: var(--sans); font-size: 18px; font-weight: 600;">Card and UI heading</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">Body · 16 / Sans</div>
+        <div class="type-sample" style="font-family: var(--sans); font-size: 16px; line-height: 1.55; color: var(--ink-2);">Body text reads like ink on warm paper. Line height generous, color slightly muted from primary ink.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">Small · 13 / Sans</div>
+        <div class="type-sample" style="font-family: var(--sans); font-size: 13px; color: var(--ink-3);">Captions, secondary text, footnotes.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-spec">Eyebrow · 11 / Mono CAPS</div>
+        <div class="type-sample" style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-3);">SECTION · ID-042 · METADATA</div>
+      </div>
+    </div>
+
+    <div class="subhead">Italic emphasis · signature technique</div>
+    <div class="card emphasis-card">
+      <p>The single most distinctive pattern in the system. Italicize <em>one</em> key word in a display headline and color it with the accent. The serif's italic forms (especially in Instrument Serif) carry a printed-press feel that pairs with the warm palette.</p>
+
+      <div class="emphasis-demo">Replacing the Vibe, <em>thoughtfully.</em></div>
+      <div class="emphasis-demo" style="font-size: clamp(24px, 3.5vw, 36px);">One theme, <em>two moods.</em></div>
+
+      <div class="rule-list">
+        <div class="rule"><span class="rule-mark do">Do</span><span>Italicize a single key word per display headline.</span></div>
+        <div class="rule"><span class="rule-mark do">Do</span><span>Reserve for H1 / hero-level type only.</span></div>
+        <div class="rule"><span class="rule-mark do">Do</span><span>End the italic with a period for finality.</span></div>
+        <div class="rule"><span class="rule-mark dont">Don't</span><span>Apply to body or UI sizes (loses character).</span></div>
+        <div class="rule"><span class="rule-mark dont">Don't</span><span>Italicize whole phrases — pick one word.</span></div>
+        <div class="rule"><span class="rule-mark dont">Don't</span><span>Use a non-serif italic for this pattern.</span></div>
+      </div>
+    </div>
+  </section>
+
+  {{/* ─── 04 COMPONENTS ─── */}}
+  <section id="components">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>The system <em>applied</em></h2>
+    </div>
+    <div class="section-rule"></div>
+    <p class="section-intro">
+      Same markup, both modes. Every pattern below uses tokens — no
+      hard-coded hex. Content shown is documentation about the pattern
+      itself, so it doubles as a usage reference.
+    </p>
+
+    <div class="subhead">Stat strip</div>
+    <p style="font-size: 13.5px; color: var(--ink-3); margin: -8px 0 12px;">For at-a-glance metrics. Three to five cells; auto-fit grid handles wrapping.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Tokens</div>
+        <div class="stat-value">14</div>
+        <div class="stat-sub">documented above</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Families</div>
+        <div class="stat-value">3</div>
+        <div class="stat-sub">serif · sans · mono</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Modes</div>
+        <div class="stat-value">2</div>
+        <div class="stat-sub">light · dark</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Principles</div>
+        <div class="stat-value">4</div>
+        <div class="stat-sub">non-negotiable</div>
+      </div>
+    </div>
+
+    <div class="subhead">Recommendation / featured block</div>
+    <p style="font-size: 13.5px; color: var(--ink-3); margin: -8px 0 12px;">The strongest visual hierarchy in the system — reserve for one item per page.</p>
+    <div class="recommendation">
+      <div class="reco-label">Featured Component</div>
+      <div class="reco-pick"><em>The recommendation block</em>, for when one thing leads</div>
+      <div class="reco-price">Use sparingly · One per page max</div>
+      <p class="reco-body">
+        The vertical accent bar, the gradient background, and the italic
+        burgundy emphasis combine to draw the eye immediately. Reserve this
+        block for the single "this is the answer" call on each page —
+        top recommendation, primary decision, headline pick. Not for
+        side-by-side comparisons (use cards for those).
+      </p>
+    </div>
+
+    <div class="subhead">Cards · open questions · clean lists</div>
+    <p style="font-size: 13.5px; color: var(--ink-3); margin: -8px 0 12px;">Two-column grid collapses to single column under 760px. Open-question strips use an amber left-border; clean lists use a burgundy arrow bullet.</p>
+    <div class="two-col" style="margin-top: 4px;">
+      <div class="card">
+        <h4>Open questions</h4>
+        <div style="margin-top: 14px;">
+          <div class="open-q boxed">
+            <div class="open-q-id">OQ-1</div>
+            <div class="open-q-q">A question waiting on more information</div>
+            <div class="open-q-trig">Triggers: the condition that resolves it</div>
+          </div>
+          <div class="open-q boxed" style="margin-top: 10px;">
+            <div class="open-q-id">OQ-2</div>
+            <div class="open-q-q">A second open question, less tentative</div>
+            <div class="open-q-trig">Triggers: a different condition</div>
+          </div>
+          <div class="open-q boxed" style="margin-top: 10px;">
+            <div class="open-q-id">OQ-3</div>
+            <div class="open-q-q">A third, dependent on the first two</div>
+            <div class="open-q-trig">Triggers: only after OQ-1 resolves</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Next actions</h4>
+        <ul class="clean" style="margin-top: 10px;">
+          <li>First concrete next step</li>
+          <li>Second action, named specifically enough to do</li>
+          <li>Third action, with the verb at the front</li>
+          <li>Fourth action — keep the list short</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subhead">Status badges</div>
+    <p style="font-size: 13.5px; color: var(--ink-3); margin: -8px 0 12px;">Four states with paired soft-background and high-contrast-ink tokens.</p>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <span class="badge decided">Decided</span>
+      <span class="badge progress">In Progress</span>
+      <span class="badge rejected">Rejected</span>
+      <span class="badge open">Open</span>
+    </div>
+
+    <div class="subhead">Decision items</div>
+    <p style="font-size: 13.5px; color: var(--ink-3); margin: -8px 0 12px;">For decision logs, change records, design rationale. ID + title + status badge in the header; body prose underneath.</p>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <article class="decision">
+        <div class="decision-head">
+          <div class="decision-title"><span class="decision-id">ID-001</span>The first decision, framed as a statement</div>
+          <span class="badge decided">Decided</span>
+        </div>
+        <div class="decision-body"><p>One or two sentences on what was chosen and why. Use <strong>bold</strong> for the operative noun, not for entire phrases. Note tradeoffs in a follow-up paragraph if needed.</p></div>
+      </article>
+      <article class="decision">
+        <div class="decision-head">
+          <div class="decision-title"><span class="decision-id">ID-002</span>A second decision, still being worked</div>
+          <span class="badge progress">In Progress</span>
+        </div>
+        <div class="decision-body"><p>In-progress decisions get the amber-soft <code>progress</code> badge. State the current direction and what would close the decision — the <strong>trigger</strong> that moves it to decided.</p></div>
+      </article>
+    </div>
+  </section>
+
+  {{/* ─── BESPOKE FOOTER ───
+       Brand-book-specific (version stamp, source-of-truth pointer). Not
+       the universal partial. Same pattern as the home page's bespoke footer. */}}
+  <footer>
+    <div class="footer-cols">
+      <div class="colophon">Working <span>File</span> · Brand Book</div>
+      <div class="meta">v1.0 · MAY 2026 · LIGHT + DARK</div>
+    </div>
+    <p style="margin-top: 18px;">
+      CSS tokens, type system, and components — all reusable. The whole system
+      lives in <code>/css/theme.css</code> as portable custom properties.
+      Source-of-truth: <code>BRAND.md</code>. Toggle the moon/sun, top right.
+    </p>
+  </footer>
+
+</div>
+{{ end }}

@@ -1,0 +1,205 @@
+{{ define "extra_head" }}
+<style>
+  /* "Now" wants a tighter rhythm than the full wrap. */
+  .now-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 760px) { .now-grid { grid-template-columns: 1fr; } }
+
+  .focus-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 24px 28px;
+  }
+  .focus-card h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .focus-card h3 em { color: var(--accent); font-style: italic; }
+  .focus-card .why {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.55;
+    margin-top: 10px;
+  }
+
+  .week-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .week-meta .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .week-meta .dates {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+  }
+
+  /* Past weeks — collapsible compact entries */
+  .past {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .past-week {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 24px;
+    align-items: baseline;
+  }
+  .past-week:last-child { border-bottom: none; }
+  .past-week .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+  }
+  .past-week .summary {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  .past-week .summary em {
+    color: var(--accent);
+    font-style: italic;
+    font-family: var(--serif);
+    font-size: 1.05em;
+  }
+
+  @media (max-width: 640px) {
+    .past-week { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="wrap-tight">
+
+  <header class="hero">
+    <div class="hero-eyebrow with-rule">Now · This week</div>
+    <h1>Working on, <em>this week.</em></h1>
+    <p class="hero-lede">
+      A small, dated page. The thing I'm trying to make progress on,
+      what would close it, and a compressed log of the recent past.
+      Updated when I sit down with the file — anything more frequent
+      is theater.
+    </p>
+  </header>
+
+  <section>
+    <div class="week-meta">
+      <span class="num">Week of</span>
+      <span class="dates">MAY 11 → MAY 17, 2026</span>
+    </div>
+
+    <div class="now-grid" style="margin-top: 18px;">
+      <div class="focus-card">
+        <h4 style="margin-bottom: 14px;">Primary focus</h4>
+        <h3>Site shell, <em>shipped.</em></h3>
+        <div class="reco-price" style="margin-top: 10px;">Home · brand book · 404 · colophon · now</div>
+        <p class="why">
+          The infrastructure that lets every other page get built.
+          Theme system extracted, favicon designed, draft pages stubbed
+          so the directory on the home page stops 404-ing.
+          <strong>Trigger to close:</strong> all four sub-pages drafted
+          (<a href="/decisions/">decisions</a>, <a href="/shortlist/">shortlist</a>,
+          <a href="/buying-plan/">buying plan</a>, <a href="/quickref/">quickref</a>),
+          even if rough.
+        </p>
+      </div>
+
+      <div class="focus-card" style="border-left-color: var(--amber);">
+        <h4 style="margin-bottom: 14px;">In motion</h4>
+        <h3>Test drives, <em>scheduled.</em></h3>
+        <div class="reco-price" style="margin-top: 10px;">Prius · Niro · Bolt EUV</div>
+        <p class="why">
+          Lined up at three Richmond dealers; closing the powertrain
+          question (<a href="/hub/#oq-1">OQ-1</a>) ahead of any
+          financing pre-approvals. Rear-seat car-seat fit is the real
+          test — the numbers all work; the geometry might not.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head-simple">
+      <div class="sub">Next up</div>
+      <h2>What's queued</h2>
+    </div>
+    <div class="card">
+      <ul class="clean">
+        <li>Pre-approve financing — 3 quotes (credit unions + Capital One)</li>
+        <li>Get rough insurance quotes for the shortlist</li>
+        <li>List the Vibe — Facebook Marketplace, mechanic's-special framing</li>
+        <li>Draft <a href="/decisions/">decisions page</a> — highest leverage; markdown source is already structured</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="past">
+    <div class="section-head-simple">
+      <div class="sub">Recently</div>
+      <h2>The last few weeks</h2>
+    </div>
+
+    <div class="past-week">
+      <div class="label">MAY 4 — 10</div>
+      <div class="summary">
+        Rewrote the brand preview into a proper <em>brand book.</em>
+        Added principles, expanded palette docs to HEX + CMYK + usage,
+        carved out italic-emphasis Do/Don't pattern. Page got long — that's fine.
+      </div>
+    </div>
+
+    <div class="past-week">
+      <div class="label">APR 27 — MAY 3</div>
+      <div class="summary">
+        Built the <em>home page.</em> Stat strip + recommendation block + page
+        directory with Live/Draft badges. Recognized that the home doubles
+        as a roadmap for the unbuilt sub-pages.
+      </div>
+    </div>
+
+    <div class="past-week">
+      <div class="label">APR 20 — 26</div>
+      <div class="summary">
+        Dark-mode pass. Lifted accent burgundy to terracotta, kept warm
+        surfaces. Decided dark mode is <em>intentional, not inverted.</em>
+        B-007.
+      </div>
+    </div>
+
+    <div class="past-week">
+      <div class="label">APR 13 — 19</div>
+      <div class="summary">
+        Extracted theme tokens out of the hub. Every color routes through
+        a CSS variable now. <em>One swap,</em> not three thousand find-and-replaces.
+        B-006.
+      </div>
+    </div>
+  </section>
+
+</div>
+{{ end }}
