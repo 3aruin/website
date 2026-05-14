@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Working File · Hugo configuration
+# Every setting below traces to a decision in SITE_DECISIONS.md. When changing
+# any value, update the corresponding entry or open a new one.
+# ─────────────────────────────────────────────────────────────────────────────
+
+baseURL      = "https://bysimms.co/"          # B-021
+title        = "Working File"                 # B-029 (sitewide brand)
+languageCode = "en-us"                        # aligns with A-002 (<html lang="en">)
+
+# URL convention — B-030 (supersedes B-010, closes OQ-B2)
+# uglyURLs = false emits public/colophon/index.html so the served URL is
+# /colophon/ rather than /colophon.html. Same for every other page.
+uglyURLs = false
+
+# robots.txt — B-031
+# Kept as a hand-written file in static/robots.txt (B-026). The file is short
+# and single-purpose; Hugo's generation feature doesn't earn its keep here.
+enableRobotsTXT = false
+
+# Disable noise routes Hugo would otherwise generate. This isn't a blog; no
+# categories, no tags, no RSS feed.
+disableKinds = ["taxonomy", "term", "RSS"]
+
+
+# ─── Markup ──────────────────────────────────────────────────────────────────
+# unsafe = true lets raw HTML inside .md files render. None of the current
+# content/*.md files have body content (all front-matter stubs pointing at
+# layouts) but the option is on for when page bodies migrate into markdown.
+# Risk profile is "trust your own repo's markdown" — fine on a single-author
+# personal site. B-031.
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+
+# ─── Site params ─────────────────────────────────────────────────────────────
+# Sitewide values referenced from layouts and partials.
+
+[params]
+  description = "Working File — a multi-project personal site."
+
+  # Brand wordmark split — B-029
+  # nav.html renders these as `{{ word1 }} <span>{{ word2 }}</span>` so the
+  # italic-accent treatment on the second word stays a styling-layer concern.
+  [params.brand]
+    word1 = "Working"
+    word2 = "File"
