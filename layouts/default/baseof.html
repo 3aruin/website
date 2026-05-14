@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{- partial "head.html" . -}}
+  {{- partial "theme-preload.html" . -}}
+  {{- block "extra_head" . }}{{ end -}}
+</head>
+<body data-print-source="{{ .File.LogicalName | default "index.html" }}">
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  {{- partial "nav.html" . -}}
+
+  <main id="main">
+    {{- block "main" . }}{{ end -}}
+  </main>
+
+  <script src="/js/theme.js" defer></script>
+</body>
+</html>
