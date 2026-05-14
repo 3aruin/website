@@ -1,0 +1,28 @@
+{{/* B-029 · pre-paint theme attribute.
+
+     Runs before any visible paint to avoid a flash of wrong theme. Has to
+     stay inline (an external script can't beat first paint) and small.
+     theme.js then takes over for click handling and matchMedia subscription
+     once the body parses.
+
+     Resolution order, matching theme.js:
+       1. localStorage('theme') — explicit user choice wins
+       2. prefers-color-scheme: light — light only when explicitly preferred
+       3. fallback → dark (A-003: warm dark is the brand's resting state)
+
+     Wrapped in IIFE to stay out of the global scope. localStorage access is
+     try/caught — Safari private mode and some browsers throw on read. */}}
+<script>
+(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    if (stored === 'light' || stored === 'dark') {
+      document.documentElement.setAttribute('data-theme', stored);
+      return;
+    }
+  } catch (e) { /* localStorage blocked — fall through to system pref */ }
+  var prefersLight = window.matchMedia
+    && window.matchMedia('(prefers-color-scheme: light)').matches;
+  document.documentElement.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
+})();
+</script>

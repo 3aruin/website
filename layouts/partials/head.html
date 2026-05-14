@@ -1,0 +1,49 @@
+{{/* B-029 · head partial — meta, favicons, fonts, CSS.
+
+     Title rule has three cases:
+       - home (.IsHome)        → just the site title
+       - 404 (.Kind eq "404")  → "404 — Site Title"
+       - everything else       → "Page Title — Site Title"
+     Hugo's 404 has no .Title, so .Kind is the reliable signal.
+
+     Description falls back to .Site.Params.description when a page doesn't
+     set its own — kept here so per-page front matter is the override, not
+     the floor. */}}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>
+  {{- if .IsHome -}}
+    {{ .Site.Title }}
+  {{- else if eq .Kind "404" -}}
+    404 — {{ .Site.Title }}
+  {{- else -}}
+    {{ .Title }} — {{ .Site.Title }}
+  {{- end -}}
+</title>
+
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+{{/* Favicons — B-023.
+     Two SVGs auto-swap via prefers-color-scheme. Apple touch icon is
+     single-mode (iOS home-screen doesn't honor color-scheme on icons,
+     so a dark variant would never display). */}}
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)">
+<link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+
+{{/* Fonts — B-012, B-023.
+     Instrument Serif (display) · Geist (body, UI) · JetBrains Mono (eyebrows,
+     IDs, meta) · Mrs Saint Delafield (signature script — colophon only, but
+     loaded sitewide; small file, used rarely, not worth conditional logic). */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Mrs+Saint+Delafield&display=swap">
+
+{{/* Styles — B-022.
+     theme.css is the shared system; print.css loads with media="print" so it
+     never affects screen rendering. Page-unique styles stay inline via the
+     extra_head block in each layout. */}}
+<link rel="stylesheet" href="/css/theme.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
