@@ -1,0 +1,136 @@
+/* ═════════════════════════════════════════════════════════════════
+   WORKING FILE — PRINT
+   Loaded with media="print" so it stays out of screen rendering.
+   Goal: turn any themed page into a paper-feeling print artifact.
+
+   Path: /css/print.css   ·   Hugo: static/css/print.css
+   ═════════════════════════════════════════════════════════════════ */
+
+@media print {
+
+  /* Force light mode for ink-on-paper — the dark theme would
+     burn through cartridges and read as a photo, not a document. */
+  :root,
+  [data-theme="dark"] {
+    --bg:           #ffffff;
+    --bg-card:      #ffffff;
+    --bg-soft:      #f7f3eb;
+    --ink:          #1a1816;
+    --ink-2:        #3d3a35;
+    --ink-3:        #6b655c;
+    --line:         #d8d0c2;
+    --line-2:       #b9ad97;
+    --accent:       #8b3a2f;
+    --accent-soft:  #f0d9d2;
+    --accent-ink:   #8b3a2f;
+    --tan:          #c69568;
+    --tan-soft:     #f1e3d2;
+    --green:        #4a6741;
+    --green-soft:   #dfe8da;
+    --green-ink:    #2f4729;
+    --amber:        #a87617;
+    --amber-soft:   #f3e6c8;
+    --amber-ink:    #6f4c0e;
+    --shadow-sm:    none;
+    --shadow-md:    none;
+  }
+
+  /* Page setup */
+  @page {
+    margin: 0.75in 0.65in;
+    size: letter;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #1a1816 !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  body, .card, .nav, .recommendation, .stats, .stat,
+  .page-card, .open-q, .principle, .swatch, .decision {
+    transition: none !important;
+  }
+
+  /* Hide chrome that doesn't belong on paper */
+  .nav,
+  .theme-toggle,
+  .nav-links,
+  .reco-cta,
+  .page-status.draft,
+  footer .colophon { display: none !important; }
+
+  /* Strip backdrop-filters everywhere (printers hate them) */
+  * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
+  /* Layout — drop the max-width clamp, let paper margins do the work */
+  .wrap, .wrap-tight {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  section { margin-top: 32pt; break-inside: avoid; scroll-margin-top: 0; }
+
+  /* Scale display type down a notch for paper */
+  .hero h1 { font-size: 42pt !important; line-height: 1.05 !important; }
+  .hero h1.display { font-size: 56pt !important; }
+  .hero-tagline { font-size: 18pt !important; }
+  .hero-lede { font-size: 12pt !important; }
+  .section-head h2 { font-size: 24pt !important; }
+  .section-head-simple h2 { font-size: 20pt !important; }
+  .reco-pick { font-size: 20pt !important; }
+  .stat-value { font-size: 18pt !important; }
+  .page-title { font-size: 18pt !important; }
+  .page-card.featured .page-title { font-size: 22pt !important; }
+
+  /* Cards — visible structure without ink-heavy fills */
+  .card, .recommendation, .page-card, .swatch, .principle, .decision {
+    background: #ffffff !important;
+    border: 1px solid #c9c0ad !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+  .recommendation { background: #faf7f2 !important; }
+  .recommendation::before { background: #8b3a2f !important; }
+
+  /* Stat strip — drop the 1px-gap-as-line trick */
+  .stats { background: #ffffff !important; border: 1px solid #c9c0ad !important; }
+  .stat { border-right: 1px solid #e8e2d8; }
+  .stat:last-child { border-right: none; }
+
+  /* Links — show URL on paper so a printout is actually navigable */
+  a[href^="http"]::after,
+  a[href^="/"]:not(.nav-brand):not(.page-card)::after {
+    content: " (" attr(href) ")";
+    font-family: var(--mono);
+    font-size: 9pt;
+    color: #6b655c;
+    word-break: break-all;
+  }
+  a { color: #8b3a2f !important; text-decoration: none; }
+
+  /* Keep heads with following content */
+  h1, h2, h3, h4, .section-head, .subhead {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* No widow/orphan lines in body copy */
+  p, li { orphans: 3; widows: 3; }
+
+  /* Print colophon — page-bottom footer that says where this came from */
+  body::after {
+    content: "Working File · bysimms.co · " attr(data-print-source);
+    display: block;
+    margin-top: 36pt;
+    padding-top: 12pt;
+    border-top: 1px solid #c9c0ad;
+    font-family: var(--mono);
+    font-size: 9pt;
+    color: #6b655c;
+    letter-spacing: 0.04em;
+  }
+
+}

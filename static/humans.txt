@@ -1,0 +1,27 @@
+/* TEAM */
+  Author: Simms
+  Site:   https://bysimms.co
+  Location: Mechanicsville, VA · USA
+
+/* SITE */
+  Last update: 2026-05-14
+  Language: English
+  Doctype: HTML5
+  Standards: HTML5, CSS3, ES2020
+  Components: hand-written, no framework
+  Build: Hugo
+  Hosting: Cloudflare Pages
+  Source: hand-edited markdown → rendered HTML
+
+/* TYPE */
+  Display:   Instrument Serif (Google Fonts)
+  Body / UI: Geist (Google Fonts)
+  Mono:      JetBrains Mono (Google Fonts)
+  Script:    Mrs Saint Delafield (Google Fonts)
+
+/* THANKS */
+  The four typeface designers and their teams, for putting
+  these in the open. Vercel for Geist. JetBrains for the mono.
+  Google Fonts for hosting.
+
+  Made warm, in Virginia.
