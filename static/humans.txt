@@ -1,7 +1,7 @@
 /* TEAM */
   Author: Simms
-  Site:   https://bysimms.co
-  Location: Mechanicsville, VA · USA
+  Site:   https://BySimms.co
+  Location: Richmond, VA · USA
 
 /* SITE */
   Last update: 2026-05-14
