@@ -4,7 +4,7 @@
 # any value, update the corresponding entry or open a new one.
 # ─────────────────────────────────────────────────────────────────────────────
 
-baseURL      = "https://bysimms.co/"          # B-021
+baseURL      = "https://BySimms.co/"          # B-021
 title        = "Working File"                 # B-029 (sitewide brand)
 languageCode = "en-us"                        # aligns with A-002 (<html lang="en">)
 
