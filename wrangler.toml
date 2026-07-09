@@ -1,0 +1,43 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Working File · Cloudflare Workers configuration
+#
+# Static-assets Worker — Hugo's rendered public/ directory is served directly
+# from Cloudflare's edge. There's no `main` Worker script because this site
+# has no server-side logic: every route is a pre-rendered file.
+#
+# NOTE ON SITE_DECISIONS.md: B-021 currently records hosting as Cloudflare
+# Pages. This file targets Cloudflare Workers instead. Pages and Workers now
+# share the same static-assets engine under the hood, but they're deployed
+# and configured differently — this isn't a drop-in rename. If moving off
+# Pages is intentional, it's worth logging as a new decision (e.g. B-032,
+# superseding B-021) so the log stays accurate the way it does for every
+# other choice here.
+# ─────────────────────────────────────────────────────────────────────────────
+
+name                = "bysimms-co"     # Wrangler/dashboard identifier only — safe to rename
+compatibility_date  = "2026-07-09"
+
+[assets]
+directory = "./public"                 # Hugo's default publishDir — unchanged in hugo.toml
+
+# 404.html is part of the page set (B-025) — serve it for any unmatched
+# route instead of Workers' SPA-style index.html fallback.
+not_found_handling = "404-page"
+
+# uglyURLs = false (B-030) makes Hugo emit public/colophon/index.html so the
+# served URL is /colophon/, not /colophon.html. "auto-trailing-slash" is
+# already the default for this setting — named explicitly here so the
+# reasoning travels with the file, the same way hugo.toml documents itself.
+html_handling = "auto-trailing-slash"
+
+# ─── Custom domain ────────────────────────────────────────────────────────
+# bysimms.co is currently pointed at Cloudflare Pages under B-021. A Workers
+# Custom Domain can't attach to a hostname that already has a conflicting
+# DNS record, so this stays commented out until that's cleared. Sequence:
+#   1. Deploy once and confirm the site on the *.workers.dev preview URL.
+#   2. Remove the Pages custom domain / DNS record for bysimms.co.
+#   3. Uncomment the block below and redeploy.
+#
+# [[routes]]
+# pattern        = "bysimms.co"
+# custom_domain  = true
