@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
-# Working File · build script for Cloudflare Workers
+# Working File · build command for Cloudflare Workers Builds
 #
-# Builds the Hugo site into ./public and deploys it with Wrangler. Pins a
-# specific Hugo version so the build is reproducible in CI rather than
-# depending on whatever happens to be preinstalled on the runner.
+# Builds the Hugo site into ./public. That's all this script does now —
+# deploy is a separate step. Workers Builds runs its own "Deploy command"
+# (Settings > Build in the Cloudflare dashboard) after this exits 0; it
+# defaults to `npx wrangler deploy` and reads the Wrangler version from
+# package.json, so no change is needed there. Cloudflare also handles auth
+# for that step automatically (an account-scoped API token, generated when
+# Workers Builds was first connected) — nothing to configure here for that
+# either.
 #
-# Requires for the deploy step: Node.js (for `npx wrangler`), plus either
-#   - `wrangler login` run once interactively (local use), or
-#   - CLOUDFLARE_API_TOKEN, and CLOUDFLARE_ACCOUNT_ID if the token can see
-#     more than one account, set as environment variables (CI use).
+# Pins a specific Hugo version so the build is reproducible in CI rather
+# than depending on whatever happens to be preinstalled on the runner.
 #
-# If this script is set as the "Build command" in Cloudflare's own
-# git-connected Workers Builds, drop the final `npx wrangler deploy` line —
-# Workers Builds deploys automatically once the build command exits 0.
+# Dashboard build command: bash build.sh
 
 set -euo pipefail
 
@@ -22,12 +23,13 @@ version_matches() {
   "$1" version 2>/dev/null | grep -q "v${HUGO_VERSION}"
 }
 
-# ─── 1. Resolve a Hugo binary ───────────────────────────────────────────────
+# ─── Resolve a Hugo binary ──────────────────────────────────────────────────
 # Reuse an already-installed Hugo if it's the pinned version (covers local
 # dev on macOS/Windows/Linux). Otherwise download the pinned Linux binary
-# into a project-local .bin/ — no sudo, no PATH changes, safe in any CI
-# container. Standard (non-extended) edition: this site has no Sass/PostCSS
-# pipeline (B-031), so extended buys nothing here.
+# into a project-local .bin/ — no sudo, no PATH changes, safe inside the
+# Workers Builds container or any other Linux CI. Standard (non-extended)
+# edition: this site has no Sass/PostCSS pipeline (B-031), so extended buys
+# nothing here.
 if command -v hugo >/dev/null 2>&1 && version_matches hugo; then
   HUGO_BIN="hugo"
 else
@@ -46,10 +48,6 @@ fi
 
 echo "==> $("$HUGO_BIN" version)"
 
-# ─── 2. Build ────────────────────────────────────────────────────────────────
+# ─── Build ───────────────────────────────────────────────────────────────────
 echo "==> Building site"
 "$HUGO_BIN" --gc --minify --cleanDestinationDir
-
-# ─── 3. Deploy ───────────────────────────────────────────────────────────────
-echo "==> Deploying to Cloudflare Workers"
-npx wrangler deploy
