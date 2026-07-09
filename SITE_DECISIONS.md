@@ -1,13 +1,13 @@
 ---
 title: Site Build — Decisions Log
-project: BySimms.co (Working File · multi-project personal site)
+project: bysimms.co (Working File · multi-project personal site)
 scope: build, hosting, theme, structure, brand
 host: Cloudflare Pages
-domain: BySimms.co
+domain: bysimms.co
 started: 2026-05-13
-last_updated: 2026-05-17
+last_updated: 2026-07-09
 status_counts:
-  decided: 31
+  decided: 30
   in_progress: 1
   open: 3
   not_applicable: 0
@@ -19,13 +19,13 @@ The meta log: how this static site is built, themed, hosted, and branded. **Not*
 
 Decision IDs use a `B-NNN` prefix for *build*, distinct from the vehicle project's `D-NNN`. Chronological, never renumbered. Status can change; the ID is permanent. When a later decision replaces an earlier one, the earlier one keeps its ID and gets a **Superseded by** line — the history is the record.
 
-**Status snapshot:** 31 decided · 1 in progress · 3 open · 0 not applicable
+**Status snapshot:** 30 decided · 1 in progress · 3 open · 0 not applicable
 
 ---
 
 ## Index
 
-### ✅ Decided (31)
+### ✅ Decided (30)
 
 | ID    | Topic                                                                          |
 |-------|--------------------------------------------------------------------------------|
@@ -48,7 +48,7 @@ Decision IDs use a `B-NNN` prefix for *build*, distinct from the vehicle project
 | B-018 | `BRAND.md` as canonical source for the brand book                              |
 | B-019 | Four brand principles articulated (Warmth · Restraint · Editorial · Dual mood) |
 | B-020 | Build approach switched to **Hugo**                                            |
-| B-021 | Hosting switched to **Cloudflare Pages** on **BySimms.co**                     |
+| B-021 | Hosting switched to **Cloudflare Pages** on **bysimms.co**                     |
 | B-022 | CSS extracted to `/css/theme.css` + `/css/print.css`                           |
 | B-023 | Wordmark + favicon — script "S" path-traced after Mrs Saint Delafield          |
 | B-024 | `theme-preview.html` renamed to `brand-book.html`                              |
@@ -133,7 +133,7 @@ Originally chose hand-written HTML over Jekyll / Hugo / Eleventy / Astro to keep
 
 Originally chose GitHub Pages from `main` for zero-extra-account simplicity. Holding the source on GitHub anyway, no separate dashboard to learn.
 
-**Why we're flipping:** B-021 moves hosting to Cloudflare Pages on `BySimms.co`. GitHub remains the source of truth; Cloudflare just builds and serves.
+**Why we're flipping:** B-021 moves hosting to Cloudflare Pages on `bysimms.co`. GitHub remains the source of truth; Cloudflare just builds and serves.
 
 ---
 
@@ -305,16 +305,16 @@ Switching to [Hugo](https://gohugo.io/) as the static site generator.
 
 ---
 
-### B-021 — Hosting: Cloudflare Pages on `BySimms.co`
+### B-021 — Hosting: Cloudflare Pages on `bysimms.co`
 **Status:** ✅ Decided · **Supersedes B-005**
 
-Hosting moves to [Cloudflare Pages](https://pages.cloudflare.com/) at `BySimms.co`.
+Hosting moves to [Cloudflare Pages](https://pages.cloudflare.com/) at `bysimms.co`.
 
 **Why:**
 - Native Hugo build (B-020) — no GitHub Actions to write.
 - Per-PR preview deployments (which GH Pages doesn't do).
 - Faster cache invalidation than GitHub Pages.
-- Custom domain (`BySimms.co`) lands cleanly; closes `OQ-B3`.
+- Custom domain (`bysimms.co`) lands cleanly; closes `OQ-B3`.
 
 **Repo visibility** (`OQ-B5`) was decoupled from the hosting choice by this decision — Cloudflare Pages serves from a private repo without the Pro-tier requirement that GitHub Pages had — and has since resolved to **public** (see OQ-B5 closure note).
 
@@ -343,7 +343,7 @@ Only page-unique styles stay inline. The theme-toggle handler also got extracted
 ### B-023 — Wordmark + favicon: script "S" after Mrs Saint Delafield
 **Status:** ✅ Decided · **Closes OQ-B7**
 
-The site mark is a **script "S"** — for **Simms**, matching the domain `BySimms.co`.
+The site mark is a **script "S"** — for **Simms**, matching the domain `bysimms.co`.
 
 - **Letterform:** path-traced after [Mrs Saint Delafield](https://fonts.google.com/specimen/Mrs+Saint+Delafield) (italic copperplate script). Hand-drawn as SVG paths rather than `<text>` so it renders identically across browsers and OSes — an SVG `<text>` reference would fall back to whatever script face the OS happens to have, which varies wildly.
 - **Two files, auto-swapped:** `favicon.svg` (burgundy `#8b3a2f` on cream `#faf7f2`) for light user-agents; `favicon-dark.svg` (terracotta `#d4897a` on deep ink `#16130e`) for dark. The HTML uses paired `<link rel="icon" media="(prefers-color-scheme: ...)">` so browsers pick the right one without JS.
@@ -404,7 +404,7 @@ A separate `print.css` loaded with `media="print"`. What it does:
 - Hides nav, theme toggle, draft badges, CTA links.
 - Scales display type down for paper (clamp values are screen-sized).
 - Reveals URLs after every link: `[click here] → click here (https://example.com)`.
-- Adds a page-bottom colophon stripe: `BySimms.co · <page name>`.
+- Adds a page-bottom colophon stripe: `bysimms.co · <page name>`.
 - `break-inside: avoid` on cards and sections so things don't get sliced.
 
 **Tradeoff:** more CSS to maintain. Worth it for a paper-document site that genuinely wants to be printable (the principle of "reads as paper" earns it).
@@ -427,13 +427,18 @@ The site targets **WCAG 2.1 Level AA**. It isn't in legal scope today — a pers
 - **A-007** — Body/headline contrast passes AA in both modes (1.4.3).
 - **A-008** — Keyboard navigable; only native `<a>` and `<button>` (2.1.1).
 
-**Open (with stated triggers):**
+**Closed since the pass (2 more — tally now 10 closed):**
+
+- **A-009** — Skip-to-main-content link wired (2.4.1). Every page renders `<a class="skip-link" href="#main">` as the first focusable element, visually hidden until it takes keyboard focus. **Closes OQ-A2.** Landed as a one-file edit to `baseof.html` — B-029 made the wiring a single change instead of six.
+- **A-010** — `<main id="main">` landmark on every page (1.3.1, 2.4.1). One landmark for screen-reader users to jump to, and the target for the skip link (A-009). The 404 page's inner `<main>` was demoted to a `<div>` to avoid nested landmarks. **Closes OQ-A4.**
+
+**Open (3, with stated triggers):**
 
 - **OQ-A1** — Light-mode `--amber` (`#a87617`) used as text fails AA (≈ 3.7:1 on cream). Trigger: deepen to ~`#8a5e0d` *or* recolor `.open-q-id` text to `--ink-2`, leaving the amber left border as the visual cue. (1.4.3)
-- **OQ-A2** — Skip-to-content link not yet wired. CSS is in `theme.css` (`.skip-link`); needs `<a class="skip-link" href="#main">…</a>` on each page and `id="main"` on the primary content region. (2.4.1)
 - **OQ-A3** — `:focus-visible` styles defined; needs a keyboard-walk verification on every page in both modes. (2.4.7)
-- **OQ-A4** — Most pages wrap content in `<div class="wrap">` rather than `<main>`. Pair with OQ-A2.
-- **OQ-A5** — No third-party automated audit yet (axe / Lighthouse / Pa11y). Run at first publish; file findings as new OQ-AN entries.
+- **OQ-A5** — No third-party automated audit yet (axe / Lighthouse / Pa11y). **Trigger now met** — the site is live; run Lighthouse + axe against home, brand-book, and 404, then file any findings as new OQ-AN entries.
+
+*OQ-A2 and OQ-A4 closed since this pass — see A-009 and A-010 above.*
 
 Accessibility items use an `A-NNN` / `OQ-AN` namespace, distinct from `B-NNN` / `OQ-BN` here and `D-NNN` / `OQ-N` in the vehicle log. Full list lives on [`accessibility.html`](accessibility.html); that page is the canonical statement for outside readers.
 
@@ -471,11 +476,11 @@ URLs drop the `.html` suffix sitewide. `/colophon.html` becomes `/colophon/`, `/
 
 **Reverses:** B-010, which kept `.html` visible. That decision was right when the site was hand-written HTML pages saved as files — visible `.html` matched the file you'd open locally. Under Hugo, "the file" is now `content/colophon.md` plus a layout; the served URL is a separate construct entirely. The original argument for visibility doesn't apply to the new build.
 
-**Closes:** OQ-B2. The trigger was *"if/when an outside audience starts seeing the site"* — `BySimms.co` going live on Cloudflare Pages is exactly that moment, so closing it before the first public link rather than after avoids the redirect tail.
+**Closes:** OQ-B2. The trigger was *"if/when an outside audience starts seeing the site"* — `bysimms.co` going live on Cloudflare Pages is exactly that moment, so closing it before the first public link rather than after avoids the redirect tail.
 
 **Internal-link cleanup:** every layout that linked to `*.html` (the home page directory's nine page cards, the colophon's "accessibility page" and "brand book" mentions, the now page's queued items, the 404's nav-back links, the accessibility page's brand-book pointer, the brand book's own footer) needs its hrefs updated. Net: ~25 edits across six layout files. Done as part of this decision so the log lands consistent with the code.
 
-**Tradeoff:** any existing external link to `BySimms.co/something.html` would 404. There are none at time of writing (the site has never been linked from outside), so the redirect-rule cost is zero. If that ever changes, Cloudflare Pages `_redirects` handles `.html` → trailing-slash with one line per page.
+**Tradeoff:** any existing external link to `bysimms.co/something.html` would 404. There are none at time of writing (the site has never been linked from outside), so the redirect-rule cost is zero. If that ever changes, Cloudflare Pages `_redirects` handles `.html` → trailing-slash with one line per page.
 
 ---
 
@@ -484,7 +489,7 @@ URLs drop the `.html` suffix sitewide. `/colophon.html` becomes `/colophon/`, `/
 
 Initial `hugo.toml` settings, each tied to a prior decision:
 
-- **`baseURL = "https://BySimms.co/"`** — B-021.
+- **`baseURL = "https://bysimms.co/"`** — B-021.
 - **`title = "Working File"`** — B-029.
 - **`languageCode = "en-us"`** — required by Hugo; matches A-002 (`<html lang="en">`).
 - **`uglyURLs = false`** — B-030 (clean URLs).
@@ -503,7 +508,7 @@ Initial `hugo.toml` settings, each tied to a prior decision:
 ### OQ-B3 — Custom domain or `*.github.io` subdomain?
 **Status:** *Effectively closed by B-021* — keeping as OQ until DNS lands.
 
-Cloudflare Pages serves `BySimms.co`. DNS A/CNAME records need to point at Cloudflare; until that's actually configured, this stays "open" so it doesn't get forgotten.
+Cloudflare Pages serves `bysimms.co`. DNS A/CNAME records need to point at Cloudflare; until that's actually configured, this stays "open" so it doesn't get forgotten.
 
 ---
 
@@ -537,4 +542,4 @@ Four Google Fonts now (Instrument Serif, Geist, JetBrains Mono, Mrs Saint Delafi
 
 ---
 
-*Last updated: May 14, 2026. Mirrors the convention used in [`DECISIONS.md`](DECISIONS.md). Brand specifics live in [`BRAND.md`](BRAND.md). Rendered as `/site-decisions/` under Hugo, eventually.*
+*Last updated: July 9, 2026. Mirrors the convention used in [`DECISIONS.md`](DECISIONS.md). Brand specifics live in [`BRAND.md`](BRAND.md). Rendered as `/site-decisions/` under Hugo, eventually.*
