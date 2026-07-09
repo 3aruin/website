@@ -5,7 +5,7 @@
   {{- partial "theme-preload.html" . -}}
   {{- block "extra_head" . }}{{ end -}}
 </head>
-<body data-print-source="{{ with .File }}{{ .LogicalName | default "index.html" }}{{ else }}404.html{{ end }}">
+<body data-print-source="{{ with .File }}{{ .LogicalName }}{{ else }}index.html{{ end }}">
 
   <a class="skip-link" href="#main">Skip to main content</a>
 
