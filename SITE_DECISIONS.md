@@ -2,12 +2,12 @@
 title: Site Build — Decisions Log
 project: bysimms.co (Working File · multi-project personal site)
 scope: build, hosting, theme, structure, brand
-host: Cloudflare Pages
+host: Cloudflare Workers
 domain: bysimms.co
 started: 2026-05-13
 last_updated: 2026-07-09
 status_counts:
-  decided: 30
+  decided: 31
   in_progress: 1
   open: 3
   not_applicable: 0
@@ -19,13 +19,13 @@ The meta log: how this static site is built, themed, hosted, and branded. **Not*
 
 Decision IDs use a `B-NNN` prefix for *build*, distinct from the vehicle project's `D-NNN`. Chronological, never renumbered. Status can change; the ID is permanent. When a later decision replaces an earlier one, the earlier one keeps its ID and gets a **Superseded by** line — the history is the record.
 
-**Status snapshot:** 30 decided · 1 in progress · 3 open · 0 not applicable
+**Status snapshot:** 31 decided · 1 in progress · 3 open · 0 not applicable
 
 ---
 
 ## Index
 
-### ✅ Decided (30)
+### ✅ Decided (31)
 
 | ID    | Topic                                                                          |
 |-------|--------------------------------------------------------------------------------|
@@ -48,7 +48,7 @@ Decision IDs use a `B-NNN` prefix for *build*, distinct from the vehicle project
 | B-018 | `BRAND.md` as canonical source for the brand book                              |
 | B-019 | Four brand principles articulated (Warmth · Restraint · Editorial · Dual mood) |
 | B-020 | Build approach switched to **Hugo**                                            |
-| B-021 | Hosting switched to **Cloudflare Pages** on **bysimms.co**                     |
+| B-021 | Hosting switched to Cloudflare Pages on bysimms.co · **superseded by B-032** |
 | B-022 | CSS extracted to `/css/theme.css` + `/css/print.css`                           |
 | B-023 | Wordmark + favicon — script "S" path-traced after Mrs Saint Delafield          |
 | B-024 | `theme-preview.html` renamed to `brand-book.html`                              |
@@ -59,6 +59,7 @@ Decision IDs use a `B-NNN` prefix for *build*, distinct from the vehicle project
 | B-029 | Chrome extracted to Hugo `baseof.html` + four partials                         |
 | B-030 | URL convention — clean, no `.html` extension (uglyURLs = false)                |
 | B-031 | Hugo build configuration — sitemap, robots, markup, params                     |
+| B-032 | Hosting corrected — **Cloudflare Workers**, not Pages (bysimms.co live July 9)  |
 
 ### 🔄 In progress (1)
 
@@ -68,7 +69,7 @@ Decision IDs use a `B-NNN` prefix for *build*, distinct from the vehicle project
 
 ### 📋 Open (3)
 
-Listed under **Open Questions** below as `OQ-B3`, `OQ-B4`, and `OQ-B6`. Each has a stated trigger. (`OQ-B1`, `OQ-B7`, and `OQ-B8` closed by B-022, B-023, and B-024 respectively. `OQ-B2` closed by B-030. `OQ-B5` resolved: public repo on GitHub, Hugo build on Cloudflare Pages.)
+Listed under **Open Questions** below as `OQ-B4`, `OQ-B6`, and `OQ-B9`. Each has a stated trigger. (`OQ-B1`, `OQ-B7`, and `OQ-B8` closed by B-022, B-023, and B-024 respectively. `OQ-B2` closed by B-030. `OQ-B3` closed July 9, 2026 — DNS landed, `bysimms.co` serves. `OQ-B5` resolved: public repo on GitHub, Hugo build deployed to Cloudflare Workers.)
 
 ---
 
@@ -306,7 +307,7 @@ Switching to [Hugo](https://gohugo.io/) as the static site generator.
 ---
 
 ### B-021 — Hosting: Cloudflare Pages on `bysimms.co`
-**Status:** ✅ Decided · **Supersedes B-005**
+**Status:** ✅ Decided · **Supersedes B-005 · Superseded by B-032**
 
 Hosting moves to [Cloudflare Pages](https://pages.cloudflare.com/) at `bysimms.co`.
 
@@ -315,6 +316,8 @@ Hosting moves to [Cloudflare Pages](https://pages.cloudflare.com/) at `bysimms.c
 - Per-PR preview deployments (which GH Pages doesn't do).
 - Faster cache invalidation than GitHub Pages.
 - Custom domain (`bysimms.co`) lands cleanly; closes `OQ-B3`.
+
+**Why we're flipping (B-032):** the site actually shipped on Cloudflare *Workers*, not Pages. Cloudflare now provisions static sites as Workers with Static Assets and treats Pages as the legacy path, so the project that went live on July 9 is a Worker. The Pages-specific reasoning above (native Hugo build, preview deploys, clean custom-domain mapping) all carries to Workers — only the product name, dashboard location, and default URL change.
 
 **Repo visibility** (`OQ-B5`) was decoupled from the hosting choice by this decision — Cloudflare Pages serves from a private repo without the Pro-tier requirement that GitHub Pages had — and has since resolved to **public** (see OQ-B5 closure note).
 
@@ -494,7 +497,7 @@ Initial `hugo.toml` settings, each tied to a prior decision:
 - **`languageCode = "en-us"`** — required by Hugo; matches A-002 (`<html lang="en">`).
 - **`uglyURLs = false`** — B-030 (clean URLs).
 - **`enableRobotsTXT = false`** — `robots.txt` stays hand-written in `static/` (B-026). The file is short and single-purpose; Hugo's generation feature doesn't earn its keep here.
-- **Sitemap** — Hugo-generated, replacing the hand-written `static/sitemap.xml`. Hugo derives `<loc>` from the content tree and `<lastmod>` from each page's git mtime, both of which stay accurate without manual upkeep. The hand-written file is deleted from `static/`.
+- **Sitemap** — *intended* to be Hugo-generated (Hugo derives `<loc>` from the content tree and `<lastmod>` from each page's git mtime, both accurate without manual upkeep), but **this hasn't landed**. The hand-written `sitemap.xml` — still carrying pre-B-030 `.html` URLs — remains in the repo and is what gets served. Tracked as `OQ-B9`; the fix is to delete the static file so Hugo's generated sitemap takes over.
 - **`[markup.goldmark.renderer] unsafe = true`** — lets raw HTML inside markdown render. None of the current `.md` files have body content (all front-matter stubs pointing at layouts), so this doesn't matter yet, but the option is on for when page bodies start migrating into markdown. Risk profile is "trust your own repo's markdown," which on a single-author site is fine.
 - **`disableKinds = ["taxonomy", "term", "RSS"]`** — this isn't a blog and doesn't need category-archive pages or an RSS feed. Closes noise routes Hugo would otherwise generate.
 - **`[params]`** — `description` (sitewide default for OG/meta) and `[params.brand]` (`word1` / `word2` for the nav-brand split per B-029).
@@ -503,12 +506,30 @@ Initial `hugo.toml` settings, each tied to a prior decision:
 
 ---
 
+### B-032 — Hosting corrected: Cloudflare Workers, not Pages
+**Status:** ✅ Decided · **Supersedes B-021**
+
+The site went live on **July 9, 2026** at `bysimms.co`, and the Cloudflare product actually serving it is **Workers** (Static Assets), not **Pages**. In the dashboard the project sits under **Workers & Pages** labelled *Worker*, and its default deployment URL is a `*.workers.dev` subdomain (`bysimms-co.it-f62.workers.dev`) — a Pages project would be `*.pages.dev`.
+
+**Why the correction:** B-021 (written in May) assumed Cloudflare *Pages*. Cloudflare has since consolidated static hosting under Workers with Static Assets and steers new static sites there; Pages is now the legacy path. So the thing that shipped is a Worker. The practical model is unchanged — push to `main`, Cloudflare builds the Hugo output and serves it — but the product name, dashboard location, and default URL all differ, so the docs should say Workers.
+
+**Both URLs live:** `bysimms.co` (custom domain) and the `*.workers.dev` default both resolve to the same Worker. `hugo.toml`'s `baseURL = "https://bysimms.co/"` stays correct — `bysimms.co` is the canonical domain.
+
+**Earlier entries stay as written.** B-005, B-020, B-021, B-024, B-025, and B-030 name "Cloudflare Pages" — the platform *assumed* when each was written. Per the keep-the-history rule they're left as-is; this entry is the correction of record. Clean-URL serving (B-030) behaves the same on Workers, but the `_redirects` fallback and automatic `404.html` handling mentioned in B-024/B-025/B-030 use different config under Workers Static Assets — worth confirming next time the deploy is touched.
+
+**Still says "Pages" and needs the same one-word fix (outside this file):**
+
+- `colophon.html` — the **Hosting** entry only (links to `pages.cloudflare.com`, reads "Cloudflare Pages"). The `<dt>Pages</dt>` label near the top means the site's own *pages*, not Cloudflare — leave that one alone.
+- `accessibility.html` — the "Stack note" paragraph (links to `pages.cloudflare.com`).
+
+**Closes:** the Pages-vs-Workers mismatch across the docs. **Related:** `OQ-B3` (custom domain) resolved the same day — DNS landed on launch.
+
+---
+
 ## Open Questions
 
-### OQ-B3 — Custom domain or `*.github.io` subdomain?
-**Status:** *Effectively closed by B-021* — keeping as OQ until DNS lands.
-
-Cloudflare Pages serves `bysimms.co`. DNS A/CNAME records need to point at Cloudflare; until that's actually configured, this stays "open" so it doesn't get forgotten.
+### OQ-B3 — Custom domain or `*.github.io` subdomain? · ✅ Resolved
+**Status:** **Resolved July 9, 2026.** DNS landed on launch day; `bysimms.co` serves the site (a Cloudflare Worker — see B-032), and the `*.workers.dev` default URL resolves too. Kept here as the record; no longer counted in the open tally.
 
 ---
 
@@ -530,6 +551,18 @@ Probably worth doing the palette shortcode first; the decisions one second.
 **Related decisions:** B-012, B-023
 
 Four Google Fonts now (Instrument Serif, Geist, JetBrains Mono, Mrs Saint Delafield). Self-hosting is a download-and-`@font-face` job. Not urgent; the privacy/performance hit from Google Fonts is small for this audience. Mrs Saint Delafield is the most niche of the four — if any one of them gets self-hosted first, it'll be that one.
+
+---
+
+### OQ-B9 — Hand-written `sitemap.xml` still served, with stale `.html` URLs
+**Trigger to resolve:** delete `static/sitemap.xml`; confirm `bysimms.co/sitemap.xml` returns clean, extensionless URLs
+**Related decisions:** B-026, B-030, B-031
+
+The repo still ships a hand-written `sitemap.xml` listing `.html` URLs (`/hub.html`, `/brand-book.html`, …) from before B-030 switched the site to clean URLs. Those paths now 404, so any crawler reading this sitemap is being pointed at dead URLs on a site that just went public — worth fixing promptly.
+
+`hugo.toml` doesn't disable the `sitemap` kind, so Hugo already generates a correct clean-URL sitemap; the hand-written file collides with it at `/sitemap.xml` and wins. **Fix:** remove `static/sitemap.xml` and let Hugo's generated one serve. `robots.txt` already points at `/sitemap.xml`, so nothing else changes.
+
+**How to test which one is live:** open `https://bysimms.co/sitemap.xml` in a browser, or run `curl -s https://bysimms.co/sitemap.xml | head`. If the `<loc>` values end in `.html`, the hand-written file is being served (the bug). If they're clean/trailing-slash and list every published page (with `<lastmod>` dates matching recent commits), Hugo's is live (fixed).
 
 ---
 
